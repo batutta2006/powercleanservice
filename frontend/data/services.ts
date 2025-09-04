@@ -4,6 +4,7 @@ export type Service = {
   title: string;
   excerpt: string;
   details: string;
+  image: string;
 };
 
 export const SERVICES: Service[] = [
@@ -13,6 +14,7 @@ export const SERVICES: Service[] = [
     excerpt: "Grob-, Zwischen- & Endreinigung auf der Baustelle.",
     details:
       "Unsere Baureinigung sorgt dafür, dass jede Baustelle termingerecht und in perfektem Zustand übergeben werden kann. Wir übernehmen die Grob-, Zwischen- und Endreinigung ... (gekürzt)",
+    image: "/images/services/baureinigung.jpg"
   },
   {
     slug: "industriereinigung",
@@ -20,6 +22,7 @@ export const SERVICES: Service[] = [
     excerpt: "Maschinen, Anlagen & Produktionsflächen.",
     details:
       "Eine saubere Produktionsumgebung ist entscheidend für Qualität, Sicherheit und Effizienz ... (gekürzt)",
+    image: "/images/services/industriereinigung.jpg"
   },
   {
     slug: "fassadenreinigung",
@@ -27,6 +30,7 @@ export const SERVICES: Service[] = [
     excerpt: "Schonend & wirkungsvoll für alle Materialien.",
     details:
       "Die Fassade ist die Visitenkarte eines Gebäudes. Mit unserer professionellen Fassadenreinigung ... (gekürzt)",
+    image: "/images/services/fassadenreinigung.jpg"
   },
   {
     slug: "glasreinigung",
@@ -34,6 +38,7 @@ export const SERVICES: Service[] = [
     excerpt: "Streifenfrei – innen & außen.",
     details:
       "Streifenfreie Fenster und glänzende Glasflächen sind ein wichtiger Bestandteil gepflegter Immobilien ... (gekürzt)",
+    image: "/images/services/glasreinigung.jpg"
   },
   {
     slug: "unterhaltsreinigung",
@@ -41,6 +46,7 @@ export const SERVICES: Service[] = [
     excerpt: "Regelmäßige Sauberkeit für Büro, Praxis & Objekt.",
     details:
       "Die regelmäßige Unterhaltsreinigung ist die Basis für saubere und gepflegte Räume ... (gekürzt)",
+    image: "/images/services/unterhaltsreinigung.jpg"
   },
   {
     slug: "bueroreinigung",
@@ -48,6 +54,7 @@ export const SERVICES: Service[] = [
     excerpt: "Hygiene & Ordnung im Büroalltag.",
     details:
       "Ein sauberes Büro ist entscheidend für die Motivation der Mitarbeiter ... (gekürzt)",
+    image: "/images/services/bueroreinigung.jpg"
   },
   {
     slug: "facility-management",
@@ -55,6 +62,7 @@ export const SERVICES: Service[] = [
     excerpt: "Rundumpaket für Ihre Immobilie.",
     details:
       "Unser Facility Management geht weit über klassische Reinigungsdienste hinaus ... (gekürzt)",
+    image: "/images/services/facility-management.jpg"
   },
   {
     slug: "hausmeisterdienste",
@@ -62,6 +70,7 @@ export const SERVICES: Service[] = [
     excerpt: "Kontrolle, kleine Reparaturen & Außenanlagen.",
     details:
       "Unsere Hausmeisterdienste sorgen für einen reibungslosen Betrieb ... (gekürzt)",
+    image: "/images/services/hausmeisterdienste.jpg"
   },
   {
     slug: "graffitientfernung",
@@ -69,6 +78,7 @@ export const SERVICES: Service[] = [
     excerpt: "Schonend & gründlich – inkl. Schutzbeschichtung.",
     details:
       "Unerwünschte Graffitis mindern nicht nur den optischen Eindruck ... (gekürzt)",
+    image: "/images/services/graffitientfernung.jpg"
   },
   {
     slug: "eventreinigung",
@@ -76,6 +86,7 @@ export const SERVICES: Service[] = [
     excerpt: "Vor, während & nach dem Event.",
     details:
       "Damit Ihre Veranstaltung reibungslos abläuft, übernehmen wir die Reinigung vor, während und nach dem Event ... (gekürzt)",
+    image: "/images/services/eventreinigung.jpg"
   },
   {
     slug: "aussenflaechen",
@@ -83,6 +94,7 @@ export const SERVICES: Service[] = [
     excerpt: "Pflege von Rasen, Sträuchern & Anlagen.",
     details:
       "Gepflegte Grün- und Außenanlagen sind die Visitenkarte jeder Immobilie ... (gekürzt)",
+    image: "/images/services/aussenflaechen.jpg"
   },
   {
     slug: "fahrzeugreinigung",
@@ -90,6 +102,7 @@ export const SERVICES: Service[] = [
     excerpt: "Innen + Außen, professionell & bequem.",
     details:
       "Wir holen Ihr Auto ab, reinigen es gründlich und bringen es zurück ... (gekürzt)",
+    image: "/images/services/fahrzeugreinigung.jpg"
   },
   {
     slug: "pv-dachreinigung",
@@ -97,6 +110,7 @@ export const SERVICES: Service[] = [
     excerpt: "Mehr Leistung & Werterhalt.",
     details:
       "Regelmäßige Reinigung von Dach und PV-Anlage schützt und steigert Effizienz ... (gekürzt)",
+    image: "/images/services/pv-dachreinigung.jpg"
   },
   {
     slug: "baustellenueberwachung",
@@ -104,6 +118,7 @@ export const SERVICES: Service[] = [
     excerpt: "Sicherheit, Koordination & Qualität.",
     details:
       "Wir kontrollieren Vorschriften, koordinieren Abläufe und schützen Ihr Bauprojekt ... (gekürzt)",
+    image: "/images/services/baustellenueberwachung.jpg"
   },
 ];
 
