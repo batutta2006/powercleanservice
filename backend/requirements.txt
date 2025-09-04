@@ -1,0 +1,9 @@
+fastApi
+uvicorn[standard]
+SQLAlchemy
+psycopg2-binary
+pydantic[email]
+python-multipart
+jinja2
+resend
+python-dotenv

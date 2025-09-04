@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { --brand-red: #e01e37; }
+body { background: #fff; color: #111; }
+a { text-underline-offset: 3px; }
