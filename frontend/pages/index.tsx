@@ -263,6 +263,25 @@ export default function Home() {
     </div>
   </div>
 </section>
+{/* Über uns */}
+      <section id="about" className="py-16 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-3xl font-bold mb-6">Über uns</h2>
+          <p className="text-gray-700 leading-relaxed">
+            PowerCleanService steht seit 2009 für Qualität und Verlässlichkeit. 
+            In einer Zeit, in der viele Unternehmen nach der Wirtschaftskrise um ihre Existenz kämpfen mussten, 
+            haben wir uns erfolgreich am Markt behauptet – und sind seitdem kontinuierlich gewachsen.
+          </p>
+          <p className="text-gray-700 leading-relaxed mt-4">
+            Auch die Herausforderung der Corona-Pandemie im Jahr 2020 konnten uns nicht bremsen. 
+            Wir sind wirtschaftlich stabil geblieben und haben bewiesen, dass wir auch in schwierigen Zeiten für unsere Kunden da sind.
+          </p>
+          <p className="text-gray-700 leading-relaxed mt-4">
+            Diese Beständigkeit spricht für unsere Qualität, unsere Erfahrung und das Vertrauen, 
+            das unsere Kunden seit vielen Jahren in uns setzen.
+          </p>
+        </div>
+      </section>
 
           {/* Langjährige zufriedene Kunden */}
           <section id="kunden" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -270,7 +289,7 @@ export default function Home() {
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 items-center">
                   <img src="/images/logos/KiK.png" alt="KiK" className="max-h-24 mx-auto object-contain" />
                   <img src="/images/logos/VZF.png" alt="Verein zur Förderung" className="max-h-24 mx-auto object-contain" />
-                  <img src="/images/logos/Goldbeck.png" alt="Goldbeck" className="max-h-24 mx-auto object-contain" />
+                  <img src="/images/logos/GOLDBECK.png" alt="Goldbeck" className="max-h-24 mx-auto object-contain" />
                   <img src="/images/logos/Leonhard.png" alt="Leonhard" className="max-h-24 mx-auto object-contain" />
                   <img src="/images/logos/CleanGarant.png" alt="CleanGarant" className="max-h-24 mx-auto object-contain" />
               </div>

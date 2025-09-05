@@ -33,7 +33,7 @@ COOKIE_NAME = "pcs_session"
 COOKIE_MAX_AGE = 60 * 60 * 8  # 8h
 ALLOW_ORIGINS = os.getenv(
     "ALLOW_ORIGINS",
-    "http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000,http://127.0.0.1:3000"
+    "http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000,http://127.0.0.1:3000,https://powercleanservice.de,https://www.powercleanservice.de"
 ).split(",")
 BRAND = os.getenv("BRAND_NAME", "PowerCleanService")
 
