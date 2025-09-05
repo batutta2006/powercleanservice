@@ -45,4 +45,3 @@ export default function ServiceDetail({ detail }: { detail: any }) {
     </main>
   );
 }
-
