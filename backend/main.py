@@ -303,15 +303,20 @@ def delete_booking(booking_id: int, db: Session = Depends(get_db)):
 # =========================
 # App + Admin-UI
 # =========================
-app = FastAPI(title=BRAND + " API")
+from fastapi.middleware.cors import CORSMiddleware
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=ALLOW_ORIGINS,
+    allow_origins=[
+        "https://powercleanservice.de",
+        "https://www.powercleanservice.de",
+        "http://localhost:3000",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 app.include_router(auth)
 app.include_router(api)
