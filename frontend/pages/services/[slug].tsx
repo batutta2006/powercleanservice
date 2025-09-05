@@ -1,12 +1,19 @@
-import { useRouter } from "next/router";
 import Link from "next/link";
-import { servicesDetails, titleFromSlug } from "../../data/servicesDetails"; // ✅
+import { servicesDetails } from "../../data/servicesDetails";
 
-export default function ServiceDetail() {
-  const { query } = useRouter();
-  const slug = String(query.slug || "");
-  const detail = servicesDetails.find((s) => s.slug === slug);
+export async function getStaticPaths() {
+  return {
+    paths: servicesDetails.map(s => ({ params: { slug: s.slug } })),
+    fallback: false, // << keine unbekannten Slugs zur Laufzeit (sonst 404)
+  };
+}
 
+export async function getStaticProps({ params }: { params: { slug: string } }) {
+  const detail = servicesDetails.find(s => s.slug === params.slug) || null;
+  return { props: { detail } };
+}
+
+export default function ServiceDetail({ detail }: { detail: any }) {
   if (!detail) {
     return (
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -30,11 +37,8 @@ export default function ServiceDetail() {
       </article>
 
       <div className="mt-8 flex gap-3">
-        <Link
-          href={`/#anfrage?select=${encodeURIComponent(slug)}`}
-          className="px-5 py-3 rounded-xl bg-black text-white"
-        >
-          Anfrage zu „{titleFromSlug(slug)}“
+        <Link href={`/#anfrage?select=${encodeURIComponent(detail.slug)}`} className="px-5 py-3 rounded-xl bg-black text-white">
+          Anfrage zu „{detail.title}“
         </Link>
         <Link href="/services" className="px-5 py-3 rounded-xl border">Zur Übersicht</Link>
       </div>

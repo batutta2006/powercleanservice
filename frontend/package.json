@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "next dev -p 3000",
     "build": "next build ",
-    "start": "npx serve -s out -p $Port"
+    "start": "npx serve -s "
   },
   "dependencies": {
     "next": "^14.2.32",
