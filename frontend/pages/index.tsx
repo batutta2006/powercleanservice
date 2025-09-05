@@ -290,7 +290,7 @@ export default function Home() {
                   <img src="/images/logos/KiK.png" alt="KiK" className="max-h-24 mx-auto object-contain" />
                   <img src="/images/logos/VZF.png" alt="Verein zur Förderung" className="max-h-24 mx-auto object-contain" />
                   <img src="/images/logos/GOLDBECK.png" alt="Goldbeck" className="max-h-24 mx-auto object-contain" />
-                  <img src="/images/logos/Leonhard.png." alt="Leonhard" className="max-h-24 mx-auto object-contain" />
+                  <img src="/images/logos/Leonhard.png" alt="Leonhard" className="max-h-24 mx-auto object-contain" />
                   <img src="/images/logos/CleanGarant.png" alt="CleanGarant" className="max-h-24 mx-auto object-contain" />
               </div>
           </section>
