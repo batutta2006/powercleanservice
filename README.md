@@ -27,5 +27,5 @@ npm run dev
 ## Deployment (Render)
 - Backend als **Web Service** deployen, Start Command: `uvicorn main:app --host 0.0.0.0 --port 10000`
 - Frontend als **Static Site** deployen, Build Command: `npm install && npm run build`, Publish: `out`
-- Umgebungsvariablen im Backend setzen: `DATABASE_URL`, `ALLOW_ORIGIN`, `RESEND_API_KEY`, `ADMIN_TOKEN`, `NOTIFY_EMAIL`
+- Umgebungsvariablen im Backend setzen: `DATABASE_URL`, `ALLOW_ORIGIN`, `ADMIN_TOKEN`, `NOTIFY_EMAIL`
 - Domains: `www.powercleanservice.de` → Frontend, `api.powercleanservice.de` → Backend

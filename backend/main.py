@@ -157,37 +157,43 @@ def to_out(b: BookingORM) -> BookingOut:
     )
 
 # =========================
-# Mail (optional Resend)
+# Mail 
 # =========================
+import smtplib, ssl
+from email.message import EmailMessage
+
+SMTP_HOST = os.getenv("SMTP_HOST", "")
+SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
+SMTP_USER = os.getenv("SMTP_USER", "")
+SMTP_PASS = os.getenv("SMTP_PASS", "")
+
 def send_new_booking_email(b: BookingOut):
-    if not (HAVE_RESEND and RESEND_API_KEY):
-        return
-    subj = "[" + BRAND + "] Neue Anfrage von " + b.name
+    subj = f"[{BRAND}] Neue Anfrage von {b.name}"
     services = ", ".join(b.services or [])
     preferred = (b.preferred_date.isoformat() if b.preferred_date else "-")
-    if b.preferred_time:
-        preferred += " " + b.preferred_time.isoformat()
-    msg_html = (b.message or "").replace("<", "&lt;").replace(">", "&gt;").replace("\n", "<br>")
-    html = (
-        "<h2>Neue Anfrage</h2>"
-        "<p><strong>Name:</strong> " + b.name + "</p>"
-        "<p><strong>E-Mail:</strong> " + str(b.email) + "</p>"
-        "<p><strong>Telefon:</strong> " + (b.phone or "-") + "</p>"
-        "<p><strong>Adresse:</strong> " + (b.street or "") + " " + (b.zip_city or "") + "</p>"
-        "<p><strong>Leistungen:</strong> " + services + "</p>"
-        "<p><strong>Wunschtermin:</strong> " + preferred + "</p>"
-        "<p><strong>Nachricht:</strong><br>" + msg_html + "</p>"
-        "<hr><small>Automatisch versandt von " + BRAND + ".</small>"
-    )
-    try:
-        resend.Emails.send({
-            "from": BRAND + " <" + MAIL_FROM + ">",
-            "to": [NOTIFY_EMAIL],
-            "subject": subj,
-            "html": html
-        })
-    except Exception:
-        pass
+    if b.preferred_time: preferred += " " + b.preferred_time.isoformat()
+    msg = EmailMessage()
+    msg["From"] = f"{BRAND} <{MAIL_FROM}>"
+    msg["To"] = NOTIFY_EMAIL
+    msg["Subject"] = subj
+    msg.set_content(f"""Neue Anfrage
+
+Name: {b.name}
+E-Mail: {b.email}
+Telefon: {b.phone or "-"}
+Adresse: {(b.street or "")} {(b.zip_city or "")}
+Leistungen: {services}
+Wunschtermin: {preferred}
+
+Nachricht:
+{b.message or "-"}
+""")
+    context = ssl.create_default_context()
+    with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as s:
+        s.starttls(context=context)
+        s.login(SMTP_USER, SMTP_PASS)
+        s.send_message(msg)
+
 
 # =========================
 # Auth Router
