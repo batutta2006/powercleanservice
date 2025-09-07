@@ -13,10 +13,7 @@ export default function Anfrage() {
   const [consent, setConsent] = useState(false);
   const [status, setStatus] = useState("");
 
-  const api = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api").replace(
-    /\/$/,
-    ""
-  );
+  const api = process.env.NEXT_PUBLIC_API_URL as string;
 
   const toggleService = (svc: string) => {
     setServices((prev) =>
