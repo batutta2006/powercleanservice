@@ -82,10 +82,12 @@ def send_booking_mail(b: BookingIn):
 
 # ——— Routes ———
 @app.get("/api/health")
+@app.get("health")
 def health():
     return {"ok": True, "service": BRAND}
 
 @app.post("/api/bookings")
+@app.post("/bookings")
 def create_booking(payload: BookingIn):
     try:
         send_booking_mail(payload)
