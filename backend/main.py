@@ -89,6 +89,8 @@ def health():
 @app.post("/bookings")
 def create_booking(payload: BookingIn):
     try:
+        print("DEBUG REQUEST",
+              payload.dict())  
         send_booking_mail(payload)
         return {"ok": True}
     except Exception as e:
