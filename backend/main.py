@@ -10,10 +10,10 @@ from datetime import datetime
 BRAND = os.getenv("BRAND_NAME", "PowerCleanService")
 MAIL_TO = os.getenv("MAIL_TO", "info@powercleanservice.de")
 MAIL_FROM = os.getenv("MAIL_FROM", "info@powercleanservice.de")
-SMTP_HOST = os.getenv("SMTP_HOST", "")
+SMTP_HOST = os.getenv("SMTP_HOST", "smtp.ionos.de")
 SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
-SMTP_USER = os.getenv("SMTP_USER", "")
-SMTP_PASS = os.getenv("SMTP_PASS", "")
+SMTP_USER = os.getenv("SMTP_USER", "info@powercleanservice.de")
+SMTP_PASS = os.getenv("SMTP_PASS", "MiedofakiH.06")
 
 # ——— API & CORS ———
 allow_origins = [o.strip() for o in os.getenv("ALLOW_ORIGINS","").split(",") if o.strip()]
