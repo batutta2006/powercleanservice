@@ -1,22 +1,22 @@
-# main.py – Nur E-Mail via IONOS SMTP (kein DB, kein Admin)
+# main.py – SMTP-only Mail API (keine DB, kein Admin)
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, EmailStr, field_validator
 from typing import List, Optional
+from datetime import datetime
 import os, smtplib, ssl
 from email.message import EmailMessage
-from datetime import datetime
 
-BRAND = os.getenv("BRAND_NAME", "PowerCleanService")
-MAIL_TO = os.getenv("MAIL_TO", "info@powercleanservice.de")
-MAIL_FROM = os.getenv("MAIL_FROM", "info@powercleanservice.de")
+# ----- Konfiguration über ENV -----
+BRAND     = os.getenv("BRAND_NAME", "PowerCleanService")
+MAIL_TO   = os.getenv("MAIL_TO", "info@powercleanservice.de")             # Empfänger
+MAIL_FROM = os.getenv("MAIL_FROM", "info@powercleanservice.de")           # Absender
 SMTP_HOST = os.getenv("SMTP_HOST", "smtp.ionos.de")
 SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
 SMTP_USER = os.getenv("SMTP_USER", "info@powercleanservice.de")
-SMTP_PASS = os.getenv("SMTP_PASS", "MiedofakiH.06")
+SMTP_PASS = os.getenv("SMTP_PASS", "")
 
-# ——— API & CORS ———
-allow_origins = [o.strip() for o in os.getenv("ALLOW_ORIGINS","").split(",") if o.strip()]
+allow_origins = [o.strip() for o in os.getenv("ALLOW_ORIGINS", "").split(",") if o.strip()]
 app = FastAPI(title=f"{BRAND} Mail API")
 app.add_middleware(
     CORSMiddleware,
@@ -26,7 +26,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ——— Schemas ———
+# ----- Schemas & Validatoren -----
 class BookingIn(BaseModel):
     name: str
     email: EmailStr
@@ -34,29 +34,29 @@ class BookingIn(BaseModel):
     address: str
     services: List[str]
     message: Optional[str] = None
-    appointment: Optional[str] = None  # ISO-String 'YYYY-MM-DDTHH:MM:SS'
+    appointment: Optional[str] = None  # ISO-String, z.B. "2025-09-10T12:00:00Z"
 
     @field_validator("name", "phone", "address")
     @classmethod
-    def must_not_be_empty(cls, v: str):
+    def _not_empty(cls, v: str):
         if not (v or "").strip():
             raise ValueError("Pflichtfeld")
         return v
 
     @field_validator("services")
     @classmethod
-    def must_have_one_service(cls, v: List[str]):
+    def _one_service(cls, v: List[str]):
         if not v or len([s for s in v if s and s.strip()]) == 0:
             raise ValueError("Mindestens eine Leistung wählen")
         return v
 
-# ——— Mailversand ———
+# ----- Mailversand -----
 def send_booking_mail(b: BookingIn):
     if not (SMTP_HOST and SMTP_USER and SMTP_PASS and MAIL_TO and MAIL_FROM):
         raise RuntimeError("SMTP ist nicht konfiguriert")
 
     subj = f"[{BRAND}] Neue Anfrage von {b.name}"
-    body_lines = [
+    lines = [
         f"Neue Anfrage ({datetime.utcnow().isoformat(timespec='seconds')} UTC)\n",
         f"Name: {b.name}",
         f"E-Mail: {b.email}",
@@ -68,11 +68,12 @@ def send_booking_mail(b: BookingIn):
         "Nachricht:",
         b.message or "-",
     ]
+
     msg = EmailMessage()
     msg["From"] = f"{BRAND} <{MAIL_FROM}>"
     msg["To"] = MAIL_TO
     msg["Subject"] = subj
-    msg.set_content("\n".join(body_lines))
+    msg.set_content("\n".join(lines))
 
     ctx = ssl.create_default_context()
     with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=20) as s:
@@ -80,7 +81,7 @@ def send_booking_mail(b: BookingIn):
         s.login(SMTP_USER, SMTP_PASS)
         s.send_message(msg)
 
-# ——— Routes ———
+# ----- Routen -----
 @app.get("/health")
 def health():
     return {"ok": True, "service": BRAND}
@@ -89,10 +90,9 @@ def health():
 @app.post("/bookings")
 def create_booking(payload: BookingIn):
     try:
-        print("DEBUG REQUEST",
-              payload.dict())  
         send_booking_mail(payload)
         return {"ok": True}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
 
