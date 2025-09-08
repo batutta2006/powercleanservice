@@ -81,8 +81,7 @@ def send_booking_mail(b: BookingIn):
         s.send_message(msg)
 
 # ——— Routes ———
-@app.get("/api/health")
-@app.get("health")
+@app.get("/health")
 def health():
     return {"ok": True, "service": BRAND}
 
