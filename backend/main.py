@@ -1,29 +1,26 @@
 # main.py – SMTP-only Mail API (keine DB, kein Admin)
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse, PlainTextResponse
 from pydantic import BaseModel, EmailStr, field_validator
 from typing import List, Optional
 from datetime import datetime
 import os, smtplib, ssl
 from email.message import EmailMessage
 
-from fastapi.responses import FileResponse
-import os
-
-@app.get("/favicon.ico")
-def favicon():
-    return FileResponse(os.path.join("frontend", "public", "favicon.ico"))
-
 # ----- Konfiguration über ENV -----
 BRAND     = os.getenv("BRAND_NAME", "PowerCleanService")
-MAIL_TO   = os.getenv("MAIL_TO", "info@powercleanservice.de")             # Empfänger
-MAIL_FROM = os.getenv("MAIL_FROM", "info@powercleanservice.de")           # Absender
+MAIL_TO   = os.getenv("MAIL_TO", "info@powercleanservice.de")        # Empfänger
+MAIL_FROM = os.getenv("MAIL_FROM", "info@powercleanservice.de")      # Absender
 SMTP_HOST = os.getenv("SMTP_HOST", "smtp.ionos.de")
 SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
 SMTP_USER = os.getenv("SMTP_USER", "info@powercleanservice.de")
 SMTP_PASS = os.getenv("SMTP_PASS", "")
 
 allow_origins = [o.strip() for o in os.getenv("ALLOW_ORIGINS", "").split(",") if o.strip()]
+
+# ---- FastAPI App zuerst anlegen! ----
 app = FastAPI(title=f"{BRAND} Mail API")
 app.add_middleware(
     CORSMiddleware,
@@ -32,6 +29,16 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# ----- /favicon.ico (robust) -----
+# Versucht eine echte Datei zu liefern; falls nicht vorhanden -> 204 (leer)
+FAVICON_PATH = os.path.join(os.path.dirname(__file__), "..", "frontend", "public", "favicon.ico")
+
+@app.get("/favicon.ico")
+def favicon():
+    if os.path.exists(FAVICON_PATH):
+        return FileResponse(FAVICON_PATH)
+    return PlainTextResponse("", status_code=204)
 
 # ----- Schemas & Validatoren -----
 class BookingIn(BaseModel):
@@ -101,3 +108,4 @@ def create_booking(payload: BookingIn):
         return {"ok": True}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
