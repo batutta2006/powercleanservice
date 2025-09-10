@@ -7,6 +7,13 @@ from datetime import datetime
 import os, smtplib, ssl
 from email.message import EmailMessage
 
+from fastapi.responses import FileResponse
+import os
+
+@app.get("/favicon.ico")
+def favicon():
+    return FileResponse(os.path.join("frontend", "public", "favicon.ico"))
+
 # ----- Konfiguration über ENV -----
 BRAND     = os.getenv("BRAND_NAME", "PowerCleanService")
 MAIL_TO   = os.getenv("MAIL_TO", "info@powercleanservice.de")             # Empfänger
@@ -94,5 +101,3 @@ def create_booking(payload: BookingIn):
         return {"ok": True}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
-
