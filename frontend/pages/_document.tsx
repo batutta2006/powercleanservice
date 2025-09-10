@@ -5,9 +5,9 @@ export default function Document() {
   return (
     <Html lang="de">
       <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {/* Favicon */}
-        <link rel="icon" href="public/favicon.ico" type="image/x-icon"/>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" type="image/png" href="/favicon-32.png" sizes="32x32" /> 
+         <link rel="apple-touch-icon" href="/apple-touch-icon.png" /> 
       </Head>
       <body>
         <Main />
@@ -16,3 +16,4 @@ export default function Document() {
     </Html>
   );
 }
+
