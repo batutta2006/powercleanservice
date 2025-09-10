@@ -8,9 +8,7 @@ export default function Footer() {
     "mailto:info@powercleanservice.de",
     "?subject=" + encodeURIComponent("Anfrage Power Clean-Service"),
     "&body=" + encodeURIComponent(
-      "Hallo Power Clean-Service,%0D%0A%0D%0A" +
-      "Bitte kontaktieren Sie mich.%0D%0A%0D%0A" +
-      "Name:%0D%0ATelefon:%0D%0AAdresse:%0D%0ALeistungen:"
+      "Hallo Power Clean-Service\nBitte kontaktieren Sie mich.\nName:\nTelefon:\nAdresse:\nLeistungen:"
     )
   ].join("");
 
