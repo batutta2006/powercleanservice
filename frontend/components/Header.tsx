@@ -11,7 +11,7 @@ export default function Header() {
         {/* Logo */}
         <Link href="/" className="font-extrabold tracking-tight text-2xl md:text-3xl">
           <span style={{ color: "var(--brand-red)" }}>Power</span>
-          <span className="text-black">CleanService</span>
+          <span className="text-black">Clean Service</span>
         </Link>
 
         {/* Desktop-Navi */}
