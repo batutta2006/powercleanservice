@@ -7,8 +7,9 @@
     "start": "npx serve out -l $PORT"
   },
   "dependencies": {
+    "lucide-react": "^0.543.0",
     "next": "^14.2.32",
-    "react": "18.2.0",
+    "react": "^18.2.0",
     "react-dom": "18.2.0",
     "zod": "3.23.8"
   },
