@@ -7,9 +7,10 @@ export default function Footer() {
   const mailHref = [
     "mailto:info@powercleanservice.de",
     "?subject=" + encodeURIComponent("Anfrage Power Clean-Service"),
-    "&body=" + encodeURIComponent(
-      "Hallo Power Clean-Service\nBitte kontaktieren Sie mich.\nName:\nTelefon:\nAdresse:\nLeistungen:"
-    )
+    "&body=" +
+      encodeURIComponent(
+        "Hallo Power Clean-Service\nBitte kontaktieren Sie mich.\nName:\nTelefon:\nAdresse:\nLeistungen:"
+      ),
   ].join("");
 
   return (
@@ -20,7 +21,8 @@ export default function Footer() {
     >
       <div className="absolute inset-0 bg-black/15" />
 
-      <div className="relative max-w-6xl mx-auto px-6 py-10 grid md:grid-cols-2 gap-8">
+      <div className="relative max-w-6xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-8">
+        {/* Marke */}
         <div>
           <a href="/" className="text-2xl font-extrabold tracking-tight">
             <span className="text-red-600">POWER</span>
@@ -29,6 +31,7 @@ export default function Footer() {
           <p className="mt-2">Deutsches Handwerk seit 2009.</p>
         </div>
 
+        {/* Kontakt */}
         <div>
           <p className="font-semibold">Kontakt</p>
           <p>
@@ -67,6 +70,24 @@ export default function Footer() {
             </a>
           </div>
         </div>
+
+        {/* Seiten */}
+        <div>
+          <p className="font-semibold">Seiten</p>
+          <ul className="mt-1 space-y-1">
+            {/* Falls deine Routen ohne .html sind, nutze /datenschutz und /agb */}
+            <li>
+              <a href="/datenschutz.html" className="underline hover:no-underline">
+                Datenschutz
+              </a>
+            </li>
+            <li>
+              <a href="/agb.html" className="underline hover:no-underline">
+                AGB
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
 
       <div className="relative text-center text-sm text-white/90 pb-6">
@@ -75,5 +96,3 @@ export default function Footer() {
     </footer>
   );
 }
-// Ende "use client"
-
