@@ -61,7 +61,7 @@ class BookingIn(BaseModel):
     @classmethod
     def _one_service(cls, v: List[str]):
         if not v or len([s for s in v if s and s.strip()]) == 0:
-            raise ValueError("Mindestens eine Leistung wählen")
+            raise ValueError(f"Mindestens eine Leistung wählen. Empfangen: {v}")
         return v
 
 # ----- Mailversand -----

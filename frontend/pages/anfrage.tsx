@@ -81,6 +81,7 @@ export default function Anfrage() {
 
     try {
       setSending(true);
+      console.log("Sending payload:", payload);
       const r = await fetch(`${api}/bookings`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
