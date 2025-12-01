@@ -100,6 +100,23 @@ def send_booking_mail(b: BookingIn):
 def health():
     return {"ok": True, "service": BRAND}
 
+@app.get("/api/test-smtp")
+def test_smtp():
+    """Testet die SMTP-Verbindung, ohne eine Mail zu senden."""
+    try:
+        if not (SMTP_HOST and SMTP_USER and SMTP_PASS):
+            return {"ok": False, "error": "SMTP config missing"}
+            
+        ctx = ssl.create_default_context()
+        with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=10) as s:
+            s.starttls(context=ctx)
+            s.login(SMTP_USER, SMTP_PASS)
+            # s.noop() prüft nur die Verbindung
+            status, response = s.noop()
+            return {"ok": True, "smtp_status": status, "smtp_response": str(response)}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
+
 @app.post("/api/bookings")
 @app.post("/bookings")
 def create_booking(payload: BookingIn):
@@ -107,5 +124,6 @@ def create_booking(payload: BookingIn):
         send_booking_mail(payload)
         return {"ok": True}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        # Gib die genaue Fehlermeldung zurück, damit das Frontend sie anzeigen kann
+        raise HTTPException(status_code=500, detail=f"Mail Error: {str(e)}")
 

@@ -100,8 +100,21 @@ export default function Anfrage() {
           consent: false,
         });
       } else {
-        const text = await r.text();
-        setResult({ ok: false, err: text || "Fehler beim Senden." });
+        // Versuche JSON zu parsen, falls das Backend { detail: "..." } schickt
+        let errMsg = "Fehler beim Senden.";
+        try {
+          const json = await r.json();
+          if (json.detail) {
+            errMsg = json.detail;
+          } else if (json.error) {
+            errMsg = json.error;
+          }
+        } catch (e) {
+          // Fallback auf Text, falls kein JSON
+          const text = await r.text();
+          if (text) errMsg = text;
+        }
+        setResult({ ok: false, err: errMsg });
       }
     } catch (err: any) {
       setResult({ ok: false, err: err?.message || String(err) });
@@ -117,38 +130,38 @@ export default function Anfrage() {
         <div>
           <label className="block text-sm mb-1">Name*</label>
           <input className="w-full border rounded p-2"
-                 value={state.name}
-                 onChange={(e) => setState({ ...state, name: e.target.value })}/>
+            value={state.name}
+            onChange={(e) => setState({ ...state, name: e.target.value })} />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <div>
             <label className="block text-sm mb-1">E-Mail*</label>
             <input type="email" className="w-full border rounded p-2"
-                   value={state.email}
-                   onChange={(e) => setState({ ...state, email: e.target.value })}/>
+              value={state.email}
+              onChange={(e) => setState({ ...state, email: e.target.value })} />
           </div>
           <div>
             <label className="block text-sm mb-1">Telefon*</label>
             <input className="w-full border rounded p-2"
-                   value={state.phone}
-                   onChange={(e) => setState({ ...state, phone: e.target.value })}/>
+              value={state.phone}
+              onChange={(e) => setState({ ...state, phone: e.target.value })} />
           </div>
         </div>
 
         <div>
           <label className="block text-sm mb-1">Adresse*</label>
           <input className="w-full border rounded p-2"
-                 placeholder="Straße Hausnr, PLZ Ort"
-                 value={state.address}
-                 onChange={(e) => setState({ ...state, address: e.target.value })}/>
+            placeholder="Straße Hausnr, PLZ Ort"
+            value={state.address}
+            onChange={(e) => setState({ ...state, address: e.target.value })} />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <div>
             <label className="block text-sm mb-1">Wunschtermin (optional)</label>
             <input type="datetime-local" className="w-full border rounded p-2"
-                   value={state.appointment ?? ""}
-                   onChange={(e) => setState({ ...state, appointment: e.target.value || null })}/>
+              value={state.appointment ?? ""}
+              onChange={(e) => setState({ ...state, appointment: e.target.value || null })} />
           </div>
         </div>
 
@@ -158,8 +171,8 @@ export default function Anfrage() {
             {SERVICES.map((s) => (
               <label key={s} className="inline-flex items-center gap-2 border rounded-full px-3 py-1 text-sm">
                 <input type="checkbox"
-                       checked={state.services.includes(s)}
-                       onChange={() => toggleService(s)} />
+                  checked={state.services.includes(s)}
+                  onChange={() => toggleService(s)} />
                 {s}
               </label>
             ))}
@@ -169,19 +182,19 @@ export default function Anfrage() {
         <div>
           <label className="block text-sm mb-1">Nachricht</label>
           <textarea className="w-full border rounded p-2 min-h-[120px]"
-                    value={state.message}
-                    onChange={(e) => setState({ ...state, message: e.target.value })}/>
+            value={state.message}
+            onChange={(e) => setState({ ...state, message: e.target.value })} />
         </div>
 
         <label className="flex items-center gap-2 text-sm">
           <input type="checkbox"
-                 checked={state.consent}
-                 onChange={(e) => setState({ ...state, consent: e.target.checked })}/>
+            checked={state.consent}
+            onChange={(e) => setState({ ...state, consent: e.target.checked })} />
           Ich stimme zu, dass meine Daten zur Kontaktaufnahme verwendet werden.
         </label>
 
         <button disabled={sending}
-                className="bg-black text-white px-4 py-2 rounded disabled:opacity-60">
+          className="bg-black text-white px-4 py-2 rounded disabled:opacity-60">
           {sending ? "Senden…" : "Anfrage senden"}
         </button>
 
