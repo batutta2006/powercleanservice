@@ -83,6 +83,7 @@ function BookingForm({ initial }: { initial: string[] }) {
     consent: false,
   });
   const [status, setStatus] = useState<"idle" | "sending" | "ok" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const selectedNames = useMemo(
     () =>
@@ -95,8 +96,10 @@ function BookingForm({ initial }: { initial: string[] }) {
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
+    setErrorMessage("");
     if (!data.name || !data.email || services.length === 0 || !data.consent) {
       setStatus("error");
+      setErrorMessage("Bitte Pflichtfelder prüfen & mindestens eine Leistung wählen.");
       return;
     }
     setStatus("sending");
@@ -114,16 +117,29 @@ function BookingForm({ initial }: { initial: string[] }) {
       payload.appointment = dt;
     }
 
-    const r = await fetch(`${apiBase}/bookings`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+    try {
+      const r = await fetch(`${apiBase}/bookings`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
-    setStatus(r.ok ? "ok" : "error");
-    if (r.ok) {
-      setData({ name: "", email: "", phone: "", address: "", message: "", date: "", time: "", consent: false });
-      setServices([]);
+      if (r.ok) {
+        setStatus("ok");
+        setData({ name: "", email: "", phone: "", address: "", message: "", date: "", time: "", consent: false });
+        setServices([]);
+      } else {
+        setStatus("error");
+        try {
+          const json = await r.json();
+          setErrorMessage(json.detail || json.error || "Ein Fehler ist aufgetreten.");
+        } catch {
+          setErrorMessage("Ein Fehler ist aufgetreten (Server).");
+        }
+      }
+    } catch (err) {
+      setStatus("error");
+      setErrorMessage("Netzwerkfehler: " + String(err));
     }
   }
 
@@ -189,7 +205,7 @@ function BookingForm({ initial }: { initial: string[] }) {
                 Anfrage senden
               </button>
               {status === "ok" && <span className="text-green-600 text-sm">Vielen Dank! Wir melden uns.</span>}
-              {status === "error" && <span className="text-red-600 text-sm">Bitte Pflichtfelder prüfen & mindestens eine Leistung wählen.</span>}
+              {status === "error" && <span className="text-red-600 text-sm">{errorMessage}</span>}
             </div>
           </div>
 
