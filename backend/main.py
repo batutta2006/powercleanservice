@@ -90,10 +90,17 @@ def send_booking_mail(b: BookingIn):
     msg.set_content("\n".join(lines))
 
     ctx = ssl.create_default_context()
-    with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=20) as s:
-        s.starttls(context=ctx)
-        s.login(SMTP_USER, SMTP_PASS)
-        s.send_message(msg)
+    
+    # Automatische Wahl: SSL (465) oder STARTTLS (587)
+    if SMTP_PORT == 465:
+        with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT, context=ctx, timeout=20) as s:
+            s.login(SMTP_USER, SMTP_PASS)
+            s.send_message(msg)
+    else:
+        with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=20) as s:
+            s.starttls(context=ctx)
+            s.login(SMTP_USER, SMTP_PASS)
+            s.send_message(msg)
 
 # ----- Routen -----
 @app.get("/health")
@@ -108,12 +115,17 @@ def test_smtp():
             return {"ok": False, "error": "SMTP config missing"}
             
         ctx = ssl.create_default_context()
-        with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=10) as s:
-            s.starttls(context=ctx)
-            s.login(SMTP_USER, SMTP_PASS)
-            # s.noop() prüft nur die Verbindung
-            status, response = s.noop()
-            return {"ok": True, "smtp_status": status, "smtp_response": str(response)}
+        if SMTP_PORT == 465:
+            with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT, context=ctx, timeout=10) as s:
+                s.login(SMTP_USER, SMTP_PASS)
+                status, response = s.noop()
+                return {"ok": True, "smtp_status": status, "smtp_response": str(response)}
+        else:
+            with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=10) as s:
+                s.starttls(context=ctx)
+                s.login(SMTP_USER, SMTP_PASS)
+                status, response = s.noop()
+                return {"ok": True, "smtp_status": status, "smtp_response": str(response)}
     except Exception as e:
         return {"ok": False, "error": str(e)}
 
