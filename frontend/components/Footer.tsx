@@ -8,9 +8,9 @@ export default function Footer() {
     "mailto:info@powercleanservice.de",
     "?subject=" + encodeURIComponent("Anfrage Power Clean-Service"),
     "&body=" +
-      encodeURIComponent(
-        "Hallo Power Clean-Service\nBitte kontaktieren Sie mich.\nName:\nTelefon:\nAdresse:\nLeistungen:"
-      ),
+    encodeURIComponent(
+      "Hallo Power Clean-Service\nBitte kontaktieren Sie mich.\nName:\nTelefon:\nAdresse:\nLeistungen:"
+    ),
   ].join("");
 
   return (
@@ -35,7 +35,7 @@ export default function Footer() {
         <div>
           <p className="font-semibold">Kontakt</p>
           <p>
-            Ali Fakih<br />
+            A.Fakih<br />
             Baldurstraße 5, 30657 Hannover
           </p>
           <p>
