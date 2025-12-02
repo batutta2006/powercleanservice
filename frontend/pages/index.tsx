@@ -205,7 +205,7 @@ function BookingForm({ initial }: { initial: string[] }) {
             <div className="border border-gray-200 rounded-2xl p-4">
               <p className="font-semibold">Direktkontakt</p>
               <p className="text-sm text-gray-600 mt-1">
-                Tel.: 0174 9254 925<br />E-Mail: info@powercleanservice.de
+                Tel.: +49/176/9254/925<br />E-Mail: info@powercleanservice.de
               </p>
             </div>
           </aside>
@@ -227,73 +227,73 @@ export default function Home() {
       <Header />
 
       {/* HERO */}
-<section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-8">
-  <div
-    className="relative rounded-3xl overflow-hidden p-6 sm:p-10"
-    style={{
-      backgroundImage: "url('/images/hero/hero.jpg')",
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-    }}
-  >
-    {/* Overlay für Lesbarkeit */}
-    <div className="absolute inset-0 bg-black/25"></div>
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-8">
+        <div
+          className="relative rounded-3xl overflow-hidden p-6 sm:p-10"
+          style={{
+            backgroundImage: "url('/images/hero/hero.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          {/* Overlay für Lesbarkeit */}
+          <div className="absolute inset-0 bg-black/25"></div>
 
-    {/* Inhalt */}
-    <div className="relative">
-      <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white">
-        Glanz. Hygiene. <span className="text-red-500">Power.</span>
-      </h1>
-      <p className="text-white/90 mt-3 max-w-2xl">
-        Wählen Sie Leistungen, Termin & senden Sie Ihre Anfrage in Sekunden unverbindlich.
-      </p>
+          {/* Inhalt */}
+          <div className="relative">
+            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white">
+              Glanz. Hygiene. <span className="text-red-500">Power.</span>
+            </h1>
+            <p className="text-white/90 mt-3 max-w-2xl">
+              Wählen Sie Leistungen, Termin & senden Sie Ihre Anfrage in Sekunden unverbindlich.
+            </p>
 
-      <div className="mt-4">
-        <ServicePicker selected={selected} onChange={setSelected} />
-      </div>
+            <div className="mt-4">
+              <ServicePicker selected={selected} onChange={setSelected} />
+            </div>
 
-      <div className="mt-6 flex gap-3">
-        <button onClick={goToForm} className="px-5 py-3 rounded-xl bg-black/80 text-white backdrop-blur hover:bg-black">
-          Jetzt Angebot anfragen
-        </button>
-        <a href="#leistungen" className="px-5 py-3 rounded-xl bg-white/90 border hover:bg-white">
-          Leistungen ansehen
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-{/* Über uns */}
+            <div className="mt-6 flex gap-3">
+              <button onClick={goToForm} className="px-5 py-3 rounded-xl bg-black/80 text-white backdrop-blur hover:bg-black">
+                Jetzt Angebot anfragen
+              </button>
+              <a href="#leistungen" className="px-5 py-3 rounded-xl bg-white/90 border hover:bg-white">
+                Leistungen ansehen
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* Über uns */}
       <section id="about" className="py-16 bg-gray-50">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold mb-6">Über uns</h2>
           <p className="text-gray-700 leading-relaxed">
-            PowerCleanService steht seit 2009 für Qualität und Verlässlichkeit. 
-            In einer Zeit, in der viele Unternehmen nach der Wirtschaftskrise um ihre Existenz kämpfen mussten, 
+            PowerCleanService steht seit 2009 für Qualität und Verlässlichkeit.
+            In einer Zeit, in der viele Unternehmen nach der Wirtschaftskrise um ihre Existenz kämpfen mussten,
             haben wir uns erfolgreich am Markt behauptet – und sind seitdem kontinuierlich gewachsen.
           </p>
           <p className="text-gray-700 leading-relaxed mt-4">
-            Auch die Herausforderung der Corona-Pandemie im Jahr 2020 konnten uns nicht bremsen. 
+            Auch die Herausforderung der Corona-Pandemie im Jahr 2020 konnten uns nicht bremsen.
             Wir sind wirtschaftlich stabil geblieben und haben bewiesen, dass wir auch in schwierigen Zeiten für unsere Kunden da sind.
           </p>
           <p className="text-gray-700 leading-relaxed mt-4">
-            Diese Beständigkeit spricht für unsere Qualität, unsere Erfahrung und das Vertrauen, 
+            Diese Beständigkeit spricht für unsere Qualität, unsere Erfahrung und das Vertrauen,
             das unsere Kunden seit vielen Jahren in uns setzen.
           </p>
         </div>
       </section>
 
-          {/* Langjährige zufriedene Kunden */}
-          <section id="kunden" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-              <h2 className="text-2xl md:text-3xl font-bold mb-6">Langjährige zufriedene Kunden</h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 items-center">
-                  <img src="/images/logos/KiK.png" alt="KiK" className="max-h-24 mx-auto object-contain" />
-                  <img src="/images/logos/VZF.png" alt="Verein zur Förderung" className="max-h-24 mx-auto object-contain" />
-                  <img src="/images/logos/GOLDBECK.png" alt="Goldbeck" className="max-h-24 mx-auto object-contain" />
-                  <img src="/images/logos/Leonhard.png" alt="Leonhard" className="max-h-24 mx-auto object-contain" />
-                  <img src="/images/logos/CleanGarant.png" alt="CleanGarant" className="max-h-24 mx-auto object-contain" />
-              </div>
-          </section>
+      {/* Langjährige zufriedene Kunden */}
+      <section id="kunden" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h2 className="text-2xl md:text-3xl font-bold mb-6">Langjährige zufriedene Kunden</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 items-center">
+          <img src="/images/logos/KiK.png" alt="KiK" className="max-h-24 mx-auto object-contain" />
+          <img src="/images/logos/VZF.png" alt="Verein zur Förderung" className="max-h-24 mx-auto object-contain" />
+          <img src="/images/logos/GOLDBECK.png" alt="Goldbeck" className="max-h-24 mx-auto object-contain" />
+          <img src="/images/logos/Leonhard.png" alt="Leonhard" className="max-h-24 mx-auto object-contain" />
+          <img src="/images/logos/CleanGarant.png" alt="CleanGarant" className="max-h-24 mx-auto object-contain" />
+        </div>
+      </section>
 
 
 
