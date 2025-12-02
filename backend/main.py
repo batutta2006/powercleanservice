@@ -119,15 +119,25 @@ def test_smtp():
             with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT, context=ctx, timeout=10) as s:
                 s.login(SMTP_USER, SMTP_PASS)
                 status, response = s.noop()
-                return {"ok": True, "smtp_status": status, "smtp_response": str(response)}
+                return {
+                    "ok": True, 
+                    "smtp_status": status, 
+                    "smtp_response": str(response),
+                    "config": {"host": SMTP_HOST, "port": SMTP_PORT}
+                }
         else:
             with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=10) as s:
                 s.starttls(context=ctx)
                 s.login(SMTP_USER, SMTP_PASS)
                 status, response = s.noop()
-                return {"ok": True, "smtp_status": status, "smtp_response": str(response)}
+                return {
+                    "ok": True, 
+                    "smtp_status": status, 
+                    "smtp_response": str(response),
+                    "config": {"host": SMTP_HOST, "port": SMTP_PORT}
+                }
     except Exception as e:
-        return {"ok": False, "error": str(e)}
+        return {"ok": False, "error": str(e), "config": {"host": SMTP_HOST, "port": SMTP_PORT}}
 
 @app.post("/api/bookings")
 @app.post("/bookings")
@@ -137,5 +147,5 @@ def create_booking(payload: BookingIn):
         return {"ok": True}
     except Exception as e:
         # Gib die genaue Fehlermeldung zurück, damit das Frontend sie anzeigen kann
-        raise HTTPException(status_code=500, detail=f"Mail Error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Mail Error ({SMTP_HOST}:{SMTP_PORT}): {str(e)}")
 
